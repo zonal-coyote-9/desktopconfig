@@ -307,20 +307,3 @@ if (Test-Path $terminalSetupScript) {
 else {
     Write-Warning "Terminal setup script not found at $terminalSetupScript"
 }
-
-try {
-    iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/tsull360/dodcertinstaller/main/OSCertInstallScript-Windows.ps1'))
-}
-catch {
-    Write-Warning "Failed to install DOD certificates: $($_.Exception.Message)"
-}
-
-$caCertificatePath = [System.IO.Path]::GetFullPath((Join-Path $scriptRoot '..\..\Tech\PKI\NativemodeIssuingCA.cer'))
-if (Test-Path $caCertificatePath) {
-    certutil -addstore 'Root' $caCertificatePath | Out-Null
-}
-else {
-    Write-Warning "Local CA certificate not found at $caCertificatePath"
-}
-
-net use S: \\ds.nativehome.net\dfs

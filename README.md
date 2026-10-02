@@ -1,4 +1,4 @@
-# desktopconfigs
+# DesktopConfig
 Scripts and tools related to new system configuration.
 
 ## Overview
